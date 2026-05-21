@@ -15,11 +15,20 @@ html {
 body {
   font-family: var(--font-body);
   color: var(--color-black);
-  background: linear-gradient(135deg, var(--color-primary-lightest) 0%, var(--color-white) 50%, var(--color-primary-lightest) 100%);
+  background:
+    radial-gradient(circle at top left, rgba(255,255,255,0.1), transparent 32%),
+    linear-gradient(135deg, var(--color-bg-solid, #8f63f6) 0%, var(--color-bg-deep, #8f63f6) 55%, var(--color-bg-bright, #9d73ff) 100%);
   min-height: 100vh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+/* Contenido principal */
+#app, main, .app-container {
+  position: relative;
+  z-index: 1;
 }
 
 h1, h2, h3, h4, h5, h6 {

@@ -7,6 +7,20 @@
   --color-primary-dark: #6b0483;
   --color-primary-darker: #4a0260;
 
+  /* Colores sólidos vibrantes para fondos */
+  --color-bg-solid: #9b6df6;
+  --color-bg-light: #c084fc;
+  --color-bg-rose: #f9a8d4;
+  --color-bg-deep: #8d62ef;
+  --color-bg-bright: #9d78ff;
+  --color-hero-accent: #ffe47a;
+  --color-ink-strong: #171220;
+  
+  /* Colores para las ondas decorativas */
+  --color-wave-1: #d2a5ff;
+  --color-wave-2: #981dff;
+  --color-wave-3: #b86cd4;
+
   /* Neutros */
   --color-white: #ffffff;
   --color-black: #1a1a1a;
@@ -14,9 +28,22 @@
   --color-gray-200: #e5e5e5;
   --color-gray-300: #d4d4d4;
 
-  /* Acento (solo sakura) */
+  /* Acento (sakura) */
   --color-sakura: #f9a8d4;
   --color-sakura-light: #fce7f3;
+
+  /* Marco de fotos (GalleryFrame) */
+  --color-frame-light: #e8c9a0;
+  --color-frame-mid: #d4a574;
+  --color-frame-dark: #c4956a;
+  --color-frame-bg: #fffef8;
+  --color-caption: #5c4033;
+  --color-frame-floral:
+    radial-gradient(circle at 14px 14px, rgba(255,255,255,0.78) 0 5px, transparent 6px),
+    radial-gradient(circle at 40px 26px, rgba(250,180,212,0.95) 0 5px, transparent 6px),
+    radial-gradient(circle at 94px 34px, rgba(255,255,255,0.7) 0 4px, transparent 5px),
+    radial-gradient(circle at 130px 80px, rgba(250,180,212,0.95) 0 5px, transparent 6px),
+    linear-gradient(135deg, #ffdce9 0%, #ffeef5 32%, #f7d2e8 100%);
 
   /* Tipografía */
   --font-display: 'Klee One', 'Nunito', cursive, sans-serif;
@@ -36,10 +63,15 @@
   --radius-lg: 24px;
   --radius-full: 9999px;
 
-  /* Sombras (glassmorphism) */
+  /* Sombras */
   --shadow-soft: 0 4px 20px rgba(131, 7, 156, 0.08);
   --shadow-medium: 0 8px 32px rgba(131, 7, 156, 0.12);
+  --shadow-strong: 0 8px 24px rgba(131, 7, 156, 0.2);
+  
+  /* Glassmorphism - comentado, ya no se usa en los diseños principales
+     pero se mantiene por compatibilidad con otros componentes si existen
   --glass-bg: rgba(255, 255, 255, 0.15);
-  --glass-border: rgba(255, 255, 255, 0.3);
   --glass-blur: blur(12px);
+  */
+  --glass-border: rgba(255, 255, 255, 0.3);
 }

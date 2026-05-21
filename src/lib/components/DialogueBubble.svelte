@@ -1,20 +1,45 @@
 <script>
+  import { onMount, onDestroy } from 'svelte';
+  import { fade } from 'svelte/transition';
+  
   // Props usando Svelte 5 runes
   let { 
     text = '', 
     speed = 50, 
     visible = true, 
-    position = 'top' 
+    position = 'top',
+    special = false,
+    showHint = false,
+    onComplete = () => {}
   } = $props();
 
   // Estados reactivos
   let displayedText = $state('');
   let isTyping = $state(false);
   let showCursor = $state(false);
+  
+  // Exponer getters para el componente padre
+  export function getDisplayedText() { return displayedText; }
+  export function getIsTyping() { return isTyping; }
 
   // Referencias para limpiar timers
   let typingInterval;
   let cursorTimeout;
+
+  /**
+   * Salta el typewriter y muestra el texto completo instantáneamente
+   */
+  export function skip() {
+    if (isTyping) {
+      clearInterval(typingInterval);
+      clearTimeout(cursorTimeout);
+      displayedText = text;
+      isTyping = false;
+      showCursor = false;
+      // Llamar onComplete inmediatamente (sincrónicamente)
+      onComplete();
+    }
+  }
 
   /**
    * Escapa HTML para prevenir XSS, permitiendo solo saltos de línea
@@ -24,7 +49,8 @@
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   }
 
   /**
@@ -51,6 +77,9 @@
         clearInterval(typingInterval);
         isTyping = false;
         
+        // Llamar onComplete inmediatamente
+        onComplete();
+        
         // Ocultar cursor después de 1 segundo
         cursorTimeout = setTimeout(() => {
           showCursor = false;
@@ -59,28 +88,28 @@
     }, speed);
   }
 
-  // Efecto: reiniciar typewriter cuando cambia text o visible
-  $effect(() => {
-    if (visible && text) {
+  onMount(() => {
+    if (visible) {
       startTyping();
     }
-    
-    // Cleanup cuando el efecto se re-ejecuta o el componente se destruye
-    return () => {
-      clearInterval(typingInterval);
-      clearTimeout(cursorTimeout);
-    };
   });
 
+  onDestroy(() => {
+    clearInterval(typingInterval);
+    clearTimeout(cursorTimeout);
+  });
 </script>
 
 {#if visible}
   <div 
     class="dialogue-bubble"
     class:position-bottom={position === 'bottom'}
+    class:position-left={position === 'left'}
+    class:special
     role="status"
     aria-live="polite"
     aria-label="Diálogo"
+    out:fade={{ duration: 300 }}
   >
     <div class="bubble-content">
       <span class="typewriter-text">
@@ -95,6 +124,9 @@
       {/if}
     </div>
     <div class="bubble-tail"></div>
+    {#if showHint}
+      <span class="bubble-hint" aria-hidden="true">Click para continuar</span>
+    {/if}
   </div>
 {/if}
 
@@ -103,28 +135,16 @@
   .dialogue-bubble {
     position: relative;
     box-sizing: border-box;
-    max-width: min(320px, calc(100vw - 32px));
-    padding: 20px 24px;
-    
-    /* Glassmorphism */
-    background: var(--glass-bg, rgba(255, 255, 255, 0.15));
-    backdrop-filter: var(--glass-blur, blur(12px));
-    -webkit-backdrop-filter: var(--glass-blur, blur(12px));
-    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.3));
-    
-    /* Bordes redondeados */
-    border-radius: var(--radius-lg, 24px);
-    
-    /* Sombra */
-    box-shadow: var(--shadow-soft, 0 4px 20px rgba(131, 7, 156, 0.08));
-    
-    /* Tipografía */
+    max-width: min(520px, calc(100vw - 32px));
+    padding: 8px 0 8px 22px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
     font-family: var(--font-body, 'Quicksand', 'Nunito', sans-serif);
-    font-size: 1.1rem;
-    color: var(--color-primary-dark, #6b0483);
-    line-height: 1.5;
-    
-    /* Animación de entrada */
+    font-size: clamp(1.8rem, 4.4vw, 3.35rem);
+    color: var(--color-ink-strong, #161124);
+    line-height: 1.22;
+    letter-spacing: -0.03em;
     animation: bubbleIn 0.3s ease-out forwards;
   }
 
@@ -144,6 +164,7 @@
   .bubble-content {
     position: relative;
     z-index: 1;
+    text-wrap: balance;
   }
 
   /* Texto del typewriter */
@@ -155,7 +176,7 @@
   /* Cursor parpadeante */
   .cursor {
     display: inline-block;
-    color: var(--color-primary, #83079c);
+    color: rgba(22, 17, 36, 0.55);
     font-weight: 300;
     animation: cursorBlink 0.8s infinite;
     margin-left: 2px;
@@ -172,50 +193,75 @@
 
   /* Cola de la burbuja (por defecto apunta hacia abajo - position: top) */
   .bubble-tail {
+    display: none;
+  }
+
+  /* Cola interior para efecto sólido */
+  .dialogue-bubble::before {
+    content: '✦';
     position: absolute;
-    bottom: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 12px solid transparent;
-    border-right: 12px solid transparent;
-    border-top: 14px solid var(--glass-border, rgba(255, 255, 255, 0.3));
-    z-index: 0;
-  }
-
-  /* Cola interior para efecto glass */
-  .bubble-tail::after {
-    content: '';
-    position: absolute;
-    top: -15px;
-    left: -10px;
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 12px solid var(--glass-bg, rgba(255, 255, 255, 0.15));
-  }
-
-  /* Posición bottom: cola apunta hacia arriba */
-  .position-bottom .bubble-tail {
-    bottom: auto;
-    top: -12px;
-    border-top: none;
-    border-bottom: 14px solid var(--glass-border, rgba(255, 255, 255, 0.3));
-  }
-
-  .position-bottom .bubble-tail::after {
-    top: auto;
-    bottom: -15px;
-    border-top: none;
-    border-bottom: 12px solid var(--glass-bg, rgba(255, 255, 255, 0.15));
+    left: 0;
+    top: 0.22em;
+    color: var(--color-hero-accent, #ffe47a);
+    font-size: 0.58em;
+    line-height: 1;
   }
 
   /* Responsive: max-width más grande en pantallas grandes */
   @media (min-width: 768px) {
     .dialogue-bubble {
-      max-width: 420px;
+      max-width: 640px;
+    }
+  }
+
+  /* Estilos especiales para el mensaje de felicitación */
+  .dialogue-bubble.special {
+    max-width: min(560px, calc(100vw - 32px));
+  }
+
+  .dialogue-bubble.special .bubble-content {
+    font-family: var(--font-display, 'Klee One', cursive);
+    font-size: clamp(2.1rem, 5vw, 3.9rem);
+    color: var(--color-white, #ffffff);
+    text-shadow: 0 4px 18px rgba(72, 16, 119, 0.34);
+  }
+
+  @media (min-width: 768px) {
+    .dialogue-bubble.special {
+      max-width: 640px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .dialogue-bubble {
+      padding: 8px 0 8px 16px;
+      font-size: clamp(1.35rem, 7.2vw, 2rem);
+      line-height: 1.28;
+    }
+
+    .dialogue-bubble.special .bubble-content {
+      font-size: clamp(1.65rem, 7.8vw, 2.35rem);
+    }
+  }
+
+  /* Hint para continuar */
+  .bubble-hint {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+    z-index: 2;
+    font-family: var(--font-body, 'Quicksand', 'Nunito', sans-serif);
+    letter-spacing: 0.02em;
+  }
+
+  /* Responsive: ajustes en mobile */
+  @media (max-width: 767px) {
+    .bubble-hint {
+      bottom: 6px;
+      right: 12px;
     }
   }
 
