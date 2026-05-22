@@ -342,7 +342,7 @@
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(61, 38, 89, 0.5);
+    color: #d0a9fa;
   }
 
   .hero-header-sakura {

@@ -59,4 +59,10 @@
     z-index: 50;
     pointer-events: none;
   }
+
+  @media (min-width: 768px) {
+    .app-main.bg-panda {
+      background-position: bottom;
+    }
+  }
 </style>

@@ -136,7 +136,7 @@
 
   .gallery-kicker {
     margin: 0 0 8px;
-    color: var(--color-primary-light, #b8a0d1);
+    color: #d0a9fa;
     font-family: var(--font-body);
     font-size: 0.8rem;
     font-weight: 500;
@@ -146,7 +146,7 @@
   .gallery-title {
     font-family: var(--font-display);
     font-size: clamp(2.2rem, 6vw, 3.5rem);
-    color: var(--color-ink-strong, #3d2659);
+    color: #d0a9fa;
     margin: 0;
     letter-spacing: -0.03em;
     position: relative;
@@ -157,7 +157,7 @@
     display: block;
     width: 48px;
     height: 3px;
-    background: var(--color-primary-light, #b8a0d1);
+    background: #d0a9fa;
     margin: 12px auto 0;
     border-radius: 2px;
   }

@@ -140,7 +140,7 @@
     border: none;
     box-shadow: none;
     font-family: var(--font-body, 'Quicksand', 'Nunito', sans-serif);
-    color: var(--color-ink-strong, #3d2659);
+    color: #d0a9fa;
     line-height: 1.6;
     letter-spacing: -0.01em;
     animation: bubbleIn 0.3s ease-out forwards;
@@ -172,13 +172,13 @@
     font-size: clamp(1.2rem, 3.5vw, 1.8rem);
     font-weight: 500;
     line-height: 1.6;
-    color: var(--color-ink-strong, #3d2659);
+    color: #d0a9fa;
   }
 
   /* Cursor parpadeante */
   .cursor {
     display: inline-block;
-    color: rgba(61, 38, 89, 0.4);
+    color: #d0a9fa;
     font-weight: 300;
     animation: cursorBlink 0.8s infinite;
     margin-left: 2px;
@@ -216,7 +216,7 @@
     font-family: var(--font-display, 'Klee One', cursive);
     font-size: clamp(2rem, 6vw, 3.5rem);
     font-weight: 500;
-    color: var(--color-ink-strong, #3d2659);
+    color: #d0a9fa;
     text-align: center;
     line-height: 1.3;
     text-shadow: none;
@@ -249,7 +249,7 @@
     display: block;
     margin-top: 16px;
     font-size: 0.75rem;
-    color: rgba(61, 38, 89, 0.35);
+    color: #d0a9fa;
     pointer-events: none;
     z-index: 2;
     font-family: var(--font-body, 'Quicksand', 'Nunito', sans-serif);
