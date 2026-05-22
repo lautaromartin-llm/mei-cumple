@@ -16,7 +16,7 @@
       pose: 'eating'
     },
     {
-      text: "Que alguien muy especial cumple años hoy",
+      text: "Que alguien muy especial está celebrando hoy",
       pose: 'looking'
     }
   ];
