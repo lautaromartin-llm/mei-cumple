@@ -3,7 +3,7 @@ import { svelte } from '@sveltejs/vite-plugin-svelte';
 
 export default defineConfig({
   plugins: [svelte()],
-  base: '/MeiMeiCumple/',  // GitHub Pages repo name
+  base: '/mei-cumple/',  // GitHub Pages repo name
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
