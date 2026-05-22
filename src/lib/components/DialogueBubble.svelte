@@ -123,7 +123,6 @@
         <span class="cursor">|</span>
       {/if}
     </div>
-    <div class="bubble-tail"></div>
     {#if showHint}
       <span class="bubble-hint" aria-hidden="true">Click para continuar</span>
     {/if}
@@ -135,16 +134,15 @@
   .dialogue-bubble {
     position: relative;
     box-sizing: border-box;
-    max-width: min(520px, calc(100vw - 32px));
-    padding: 8px 0 8px 22px;
+    max-width: min(480px, calc(100vw - 48px));
+    padding: 0;
     background: transparent;
     border: none;
     box-shadow: none;
     font-family: var(--font-body, 'Quicksand', 'Nunito', sans-serif);
-    font-size: clamp(1.8rem, 4.4vw, 3.35rem);
-    color: var(--color-ink-strong, #161124);
-    line-height: 1.22;
-    letter-spacing: -0.03em;
+    color: var(--color-ink-strong, #3d2659);
+    line-height: 1.6;
+    letter-spacing: -0.01em;
     animation: bubbleIn 0.3s ease-out forwards;
   }
 
@@ -167,16 +165,20 @@
     text-wrap: balance;
   }
 
-  /* Texto del typewriter */
   .typewriter-text {
+    display: block;
     white-space: pre-wrap;
     word-wrap: break-word;
+    font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--color-ink-strong, #3d2659);
   }
 
   /* Cursor parpadeante */
   .cursor {
     display: inline-block;
-    color: rgba(22, 17, 36, 0.55);
+    color: rgba(61, 38, 89, 0.4);
     font-weight: 300;
     animation: cursorBlink 0.8s infinite;
     margin-left: 2px;
@@ -191,77 +193,75 @@
     }
   }
 
-  /* Cola de la burbuja (por defecto apunta hacia abajo - position: top) */
-  .bubble-tail {
-    display: none;
-  }
-
-  /* Cola interior para efecto sólido */
-  .dialogue-bubble::before {
-    content: '✦';
-    position: absolute;
-    left: 0;
-    top: 0.22em;
-    color: var(--color-hero-accent, #ffe47a);
-    font-size: 0.58em;
-    line-height: 1;
-  }
-
   /* Responsive: max-width más grande en pantallas grandes */
   @media (min-width: 768px) {
     .dialogue-bubble {
-      max-width: 640px;
+      max-width: 560px;
+    }
+
+    .typewriter-text {
+      font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+      font-weight: 500;
+      line-height: 1.6;
+    }
+
+    .bubble-hint {
+      font-size: 0.85rem;
+      margin-top: 20px;
     }
   }
 
   /* Estilos especiales para el mensaje de felicitación */
-  .dialogue-bubble.special {
-    max-width: min(560px, calc(100vw - 32px));
-  }
-
   .dialogue-bubble.special .bubble-content {
     font-family: var(--font-display, 'Klee One', cursive);
-    font-size: clamp(2.1rem, 5vw, 3.9rem);
-    color: var(--color-white, #ffffff);
-    text-shadow: 0 4px 18px rgba(72, 16, 119, 0.34);
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 500;
+    color: var(--color-ink-strong, #3d2659);
+    text-align: center;
+    line-height: 1.3;
+    text-shadow: none;
   }
 
   @media (min-width: 768px) {
     .dialogue-bubble.special {
-      max-width: 640px;
+      max-width: 560px;
     }
   }
 
   @media (max-width: 767px) {
     .dialogue-bubble {
-      padding: 8px 0 8px 16px;
-      font-size: clamp(1.35rem, 7.2vw, 2rem);
-      line-height: 1.28;
+      max-width: min(460px, calc(100vw - 40px));
+    }
+
+    .typewriter-text {
+      font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+      font-weight: 500;
+      line-height: 1.6;
     }
 
     .dialogue-bubble.special .bubble-content {
-      font-size: clamp(1.65rem, 7.8vw, 2.35rem);
+      font-size: clamp(1.6rem, 7vw, 2.4rem);
     }
   }
 
   /* Hint para continuar */
   .bubble-hint {
-    position: absolute;
-    bottom: 8px;
-    right: 16px;
-    font-size: 0.65rem;
-    color: rgba(255, 255, 255, 0.5);
+    display: block;
+    margin-top: 16px;
+    font-size: 0.75rem;
+    color: rgba(61, 38, 89, 0.35);
     pointer-events: none;
     z-index: 2;
     font-family: var(--font-body, 'Quicksand', 'Nunito', sans-serif);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.05em;
+    text-align: right;
   }
 
   /* Responsive: ajustes en mobile */
   @media (max-width: 767px) {
     .bubble-hint {
-      bottom: 6px;
-      right: 12px;
+      margin-top: 12px;
+      font-size: 0.7rem;
     }
   }
 

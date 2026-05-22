@@ -1,25 +1,25 @@
 :root {
-  /* Paleta principal - Morado */
-  --color-primary: #83079c;
-  --color-primary-light: #a855f7;
-  --color-primary-lighter: #c084fc;
-  --color-primary-lightest: #e9d5ff;
-  --color-primary-dark: #6b0483;
-  --color-primary-darker: #4a0260;
+  /* Paleta principal - Lavanda/Morado suave pastel */
+  --color-primary: #8b6db5;
+  --color-primary-light: #b8a0d1;
+  --color-primary-lighter: #d4c4e8;
+  --color-primary-lightest: #f0e8f8;
+  --color-primary-dark: #6b4f8a;
+  --color-primary-darker: #4a3068;
 
-  /* Colores sólidos vibrantes para fondos */
-  --color-bg-solid: #9b6df6;
-  --color-bg-light: #c084fc;
-  --color-bg-rose: #f9a8d4;
-  --color-bg-deep: #8d62ef;
-  --color-bg-bright: #9d78ff;
-  --color-hero-accent: #ffe47a;
-  --color-ink-strong: #171220;
+  /* Colores de fondo y acentos */
+  --color-bg-solid: #dcd0ee;
+  --color-bg-light: #f5f0fa;
+  --color-bg-rose: #fce7f3;
+  --color-bg-deep: #c8b5e0;
+  --color-bg-bright: #e0d4f0;
+  --color-hero-accent: #e8a8c8;
+  --color-ink-strong: #3d2659;
   
-  /* Colores para las ondas decorativas */
-  --color-wave-1: #d2a5ff;
-  --color-wave-2: #981dff;
-  --color-wave-3: #b86cd4;
+  /* Colores para las ondas decorativas (si se usan) */
+  --color-wave-1: #e0d4f0;
+  --color-wave-2: #c8b5e0;
+  --color-wave-3: #dcd0ee;
 
   /* Neutros */
   --color-white: #ffffff;
@@ -29,21 +29,17 @@
   --color-gray-300: #d4d4d4;
 
   /* Acento (sakura) */
-  --color-sakura: #f9a8d4;
-  --color-sakura-light: #fce7f3;
+  --color-sakura: #f0b8d0;
+  --color-sakura-light: #fff0f8;
 
-  /* Marco de fotos (GalleryFrame) */
-  --color-frame-light: #e8c9a0;
-  --color-frame-mid: #d4a574;
-  --color-frame-dark: #c4956a;
-  --color-frame-bg: #fffef8;
-  --color-caption: #5c4033;
+  /* Marco de fotos (GalleryFrame) - Estilo Polaroid minimalista */
+  --color-frame-light: #faf8f3;
+  --color-frame-mid: #f0ece4;
+  --color-frame-dark: #e0d8d0;
+  --color-frame-bg: #ffffff;
+  --color-caption: #7c5c9c;
   --color-frame-floral:
-    radial-gradient(circle at 14px 14px, rgba(255,255,255,0.78) 0 5px, transparent 6px),
-    radial-gradient(circle at 40px 26px, rgba(250,180,212,0.95) 0 5px, transparent 6px),
-    radial-gradient(circle at 94px 34px, rgba(255,255,255,0.7) 0 4px, transparent 5px),
-    radial-gradient(circle at 130px 80px, rgba(250,180,212,0.95) 0 5px, transparent 6px),
-    linear-gradient(135deg, #ffdce9 0%, #ffeef5 32%, #f7d2e8 100%);
+    linear-gradient(135deg, #ffffff 0%, #faf8f3 100%);
 
   /* Tipografía */
   --font-display: 'Klee One', 'Nunito', cursive, sans-serif;
@@ -63,15 +59,11 @@
   --radius-lg: 24px;
   --radius-full: 9999px;
 
-  /* Sombras */
-  --shadow-soft: 0 4px 20px rgba(131, 7, 156, 0.08);
-  --shadow-medium: 0 8px 32px rgba(131, 7, 156, 0.12);
-  --shadow-strong: 0 8px 24px rgba(131, 7, 156, 0.2);
+  /* Sombras - más suaves */
+  --shadow-soft: 0 4px 20px rgba(61, 38, 89, 0.06);
+  --shadow-medium: 0 8px 32px rgba(61, 38, 89, 0.10);
+  --shadow-strong: 0 8px 24px rgba(61, 38, 89, 0.15);
   
-  /* Glassmorphism - comentado, ya no se usa en los diseños principales
-     pero se mantiene por compatibilidad con otros componentes si existen
-  --glass-bg: rgba(255, 255, 255, 0.15);
-  --glass-blur: blur(12px);
-  */
+  /* Glassmorphism */
   --glass-border: rgba(255, 255, 255, 0.3);
 }

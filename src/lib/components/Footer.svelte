@@ -16,9 +16,6 @@
     padding: var(--spacing-lg) var(--spacing-md);
     margin-top: auto;
     background: transparent;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-top: 1px solid var(--glass-border);
   }
 
   .footer-content {
@@ -31,13 +28,13 @@
 
   .footer-credits {
     font-family: var(--font-body);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 500;
-    color: var(--color-primary-darker);
+    color: var(--color-primary-dark, #6b4f8a);
     text-align: center;
     margin: 0;
-    opacity: 0.8;
-    letter-spacing: 0.02em;
+    opacity: 0.6;
+    letter-spacing: 0.03em;
   }
 
   /* Responsive */
@@ -47,13 +44,13 @@
     }
 
     .footer-credits {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
     }
   }
 
   @media (max-width: 360px) {
     .footer-credits {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
     }
   }
 </style>

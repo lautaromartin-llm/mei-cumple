@@ -15,9 +15,7 @@ html {
 body {
   font-family: var(--font-body);
   color: var(--color-black);
-  background:
-    radial-gradient(circle at top left, rgba(255,255,255,0.1), transparent 32%),
-    linear-gradient(135deg, var(--color-bg-solid, #8f63f6) 0%, var(--color-bg-deep, #8f63f6) 55%, var(--color-bg-bright, #9d73ff) 100%);
+  background: transparent;
   min-height: 100vh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -28,6 +26,8 @@ body {
 /* Contenido principal */
 #app, main, .app-container {
   position: relative;
+  width: 100%;
+  min-height: 100vh;
   z-index: 1;
 }
 

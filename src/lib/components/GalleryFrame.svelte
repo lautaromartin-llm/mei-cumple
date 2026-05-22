@@ -44,66 +44,20 @@
   }
 </script>
 
-<!-- Marco Kawaii Individual -->
+<!-- Marco Polaroid Individual -->
 <button
   class="gallery-frame"
   onclick={openLightbox}
   type="button"
   aria-label={`Abrir ${type === 'video' ? 'video' : 'imagen'}: ${alt}`}
 >
-  <!-- Decoración de esquinas - flores de cerezo -->
-  <div class="corner-decoration top-left" aria-hidden="true">
-    <svg viewBox="0 0 30 30" width="24" height="24">
-      <g fill="var(--color-sakura)">
-        <ellipse cx="15" cy="8" rx="4" ry="6" />
-        <ellipse cx="8" cy="15" rx="6" ry="4" />
-        <ellipse cx="22" cy="15" rx="6" ry="4" />
-        <ellipse cx="15" cy="22" rx="4" ry="6" />
-        <circle cx="15" cy="15" r="3" fill="var(--color-sakura-light)" />
-      </g>
-    </svg>
-  </div>
-  <div class="corner-decoration top-right" aria-hidden="true">
-    <svg viewBox="0 0 30 30" width="24" height="24">
-      <g fill="var(--color-sakura)">
-        <ellipse cx="15" cy="8" rx="4" ry="6" />
-        <ellipse cx="8" cy="15" rx="6" ry="4" />
-        <ellipse cx="22" cy="15" rx="6" ry="4" />
-        <ellipse cx="15" cy="22" rx="4" ry="6" />
-        <circle cx="15" cy="15" r="3" fill="var(--color-sakura-light)" />
-      </g>
-    </svg>
-  </div>
-  <div class="corner-decoration bottom-left" aria-hidden="true">
-    <svg viewBox="0 0 30 30" width="24" height="24">
-      <g fill="var(--color-sakura)">
-        <ellipse cx="15" cy="8" rx="4" ry="6" />
-        <ellipse cx="8" cy="15" rx="6" ry="4" />
-        <ellipse cx="22" cy="15" rx="6" ry="4" />
-        <ellipse cx="15" cy="22" rx="4" ry="6" />
-        <circle cx="15" cy="15" r="3" fill="var(--color-sakura-light)" />
-      </g>
-    </svg>
-  </div>
-  <div class="corner-decoration bottom-right" aria-hidden="true">
-    <svg viewBox="0 0 30 30" width="24" height="24">
-      <g fill="var(--color-sakura)">
-        <ellipse cx="15" cy="8" rx="4" ry="6" />
-        <ellipse cx="8" cy="15" rx="6" ry="4" />
-        <ellipse cx="22" cy="15" rx="6" ry="4" />
-        <ellipse cx="15" cy="22" rx="4" ry="6" />
-        <circle cx="15" cy="15" r="3" fill="var(--color-sakura-light)" />
-      </g>
-    </svg>
-  </div>
-  
   <!-- Contenedor de la imagen con passe-partout -->
   <div class="image-container">
     {#if type === 'video'}
       <!-- Overlay de video -->
       <div class="video-overlay" aria-hidden="true">
         <svg class="play-icon" viewBox="0 0 64 64" width="48" height="48">
-          <circle cx="32" cy="32" r="30" fill="rgba(131, 7, 156, 0.9)" />
+          <circle cx="32" cy="32" r="30" fill="rgba(124, 92, 156, 0.9)" />
           <polygon points="26,20 26,44 46,32" fill="white" />
         </svg>
       </div>
@@ -115,6 +69,9 @@
       decoding="async"
     />
   </div>
+  
+  <!-- Caption debajo de la foto -->
+  <span class="frame-caption">{alt}</span>
 </button>
 
 <!-- Lightbox Modal -->
@@ -159,27 +116,25 @@
 <style>
   .gallery-frame {
     position: relative;
-    display: block;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: auto;
-    background:
-      linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0.16)),
-      var(--color-frame-floral);
-    background-size: auto, 180px 180px;
-    border-radius: 18px;
-    padding: 14px;
-    border: 1px solid rgba(49, 12, 68, 0.18);
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 10px 10px 14px 10px;
+    border: 1px solid rgba(61, 38, 89, 0.08);
     cursor: pointer;
-    box-shadow: 0 16px 32px rgba(48, 16, 80, 0.2);
-    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    box-shadow: 0 4px 16px rgba(61, 38, 89, 0.08);
+    transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
     text-align: left;
-    overflow: visible;
+    overflow: hidden;
     align-self: flex-start;
   }
   
   .gallery-frame:hover {
-    transform: translateY(-4px) scale(1.01);
-    box-shadow: 0 22px 40px rgba(48, 16, 80, 0.26);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 12px 32px rgba(61, 38, 89, 0.12);
   }
   
   .gallery-frame:focus-visible {
@@ -187,52 +142,17 @@
     outline-offset: 2px;
   }
   
-  .corner-decoration {
-    position: absolute;
-    width: 56px;
-    height: 56px;
-    z-index: 3;
-    pointer-events: none;
-    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.12));
-  }
-  
-  .corner-decoration.top-left {
-    top: -20px;
-    left: -8px;
-  }
-  
-  .corner-decoration.top-right {
-    top: -20px;
-    right: -8px;
-  }
-  
-  .corner-decoration.bottom-left {
-    bottom: -20px;
-    left: -8px;
-  }
-  
-  .corner-decoration.bottom-right {
-    bottom: -20px;
-    right: -8px;
-  }
-
-  .corner-decoration svg {
-    width: 100%;
-    height: 100%;
-  }
-  
   .image-container {
     position: relative;
     width: 100%;
     height: auto;
-    background: rgba(255,255,255,0.2);
-    border-radius: 10px;
+    background: transparent;
+    border-radius: 8px;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 6px solid rgba(255,255,255,0.65);
-    box-shadow: inset 0 0 0 1px rgba(49, 12, 68, 0.12);
+    border: none;
   }
   
   .image-container img {
@@ -240,11 +160,25 @@
     width: 100%;
     height: auto;
     object-fit: contain;
-    transition: transform 0.3s ease-out;
+    border-radius: 6px;
+    transition: transform 0.4s ease-out;
   }
   
   .gallery-frame:hover .image-container img {
     transform: scale(1.03);
+  }
+  
+  /* Caption debajo de la foto */
+  .frame-caption {
+    display: block;
+    margin-top: 10px;
+    font-family: var(--font-body, 'Quicksand', sans-serif);
+    font-size: 0.8rem;
+    color: var(--color-caption, #7c5c9c);
+    text-align: center;
+    line-height: 1.4;
+    padding: 0 4px;
+    font-weight: 500;
   }
   
   /* Overlay de video */
@@ -254,14 +188,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(131, 7, 156, 0.1);
+    background: rgba(124, 92, 156, 0.1);
     border-radius: 4px;
     z-index: 1;
     transition: background 0.3s ease;
   }
   
   .gallery-frame:hover .video-overlay {
-    background: rgba(131, 7, 156, 0.15);
+    background: rgba(124, 92, 156, 0.15);
   }
   
   .play-icon {
@@ -348,7 +282,7 @@
     max-width: 100%;
     max-height: 75vh;
     object-fit: contain;
-    border-radius: var(--radius-md);
+    border-radius: 12px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   }
   
@@ -384,15 +318,29 @@
     margin: 0;
   }
   
+  /* Desktop */
+  @media (min-width: 768px) {
+    .gallery-frame {
+      max-width: 420px;
+      align-self: center;
+      padding: 8px 8px 12px 8px;
+    }
+
+    .frame-caption {
+      font-size: 0.8rem;
+      margin-top: 8px;
+    }
+  }
+
   /* Responsive */
   @media (max-width: 480px) {
     .gallery-frame {
-      padding: 12px;
+      padding: 8px 8px 12px 8px;
     }
     
-    .corner-decoration {
-      width: 48px;
-      height: 48px;
+    .frame-caption {
+      font-size: 0.75rem;
+      margin-top: 8px;
     }
     
     .lightbox-close {

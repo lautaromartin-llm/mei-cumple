@@ -10,7 +10,7 @@
       id: 1,
       imageUrl: `${galleryBase}1.jpeg`,
       type: 'photo',
-      alt: 'Foto de un momento especial capturado',
+      alt: '¡Soy ese!',
       aspectRatio: '776 / 350',
       rotate: '-1.5deg',
       translateY: '4px'
@@ -19,7 +19,7 @@
       id: 2,
       imageUrl: `${galleryBase}2.jpeg`,
       type: 'photo',
-      alt: 'Foto de sonrisas felices compartidas',
+      alt: 'Toda una experiencia comer con palillos',
       aspectRatio: '480 / 853',
       rotate: '1deg',
       translateY: '-3px'
@@ -28,7 +28,7 @@
       id: 3,
       imageUrl: `${galleryBase}3.jpeg`,
       type: 'photo',
-      alt: 'Un recuerdo inolvidable para siempre',
+      alt: 'Si algún día te piso, prometo ir a tu funeral.',
       aspectRatio: '450 / 1000',
       rotate: '-1deg',
       translateY: '5px'
@@ -37,7 +37,7 @@
       id: 4,
       imageUrl: `${galleryBase}4.jpeg`,
       type: 'photo',
-      alt: 'Celebración del día especial',
+      alt: 'No recomiendo hacer pierna un día antes de jugar ping-pong.',
       aspectRatio: '1080 / 608',
       rotate: '1.5deg',
       translateY: '-2px'
@@ -46,7 +46,7 @@
       id: 5,
       imageUrl: `${galleryBase}5.jpeg`,
       type: 'photo',
-      alt: 'Momento de amistad verdadera',
+      alt: 'Bazar que vemos, bazar al que nos metemos.',
       aspectRatio: '486 / 1080',
       rotate: '-0.5deg',
       translateY: '3px'
@@ -55,7 +55,7 @@
       id: 6,
       imageUrl: `${galleryBase}6.jpeg`,
       type: 'photo',
-      alt: 'Risas y diversión sin fin',
+      alt: 'Cuenta la leyenda que Mei sigue empalagada.',
       aspectRatio: '1080 / 486',
       rotate: '1deg',
       translateY: '-4px'
@@ -70,31 +70,35 @@
     aria-label="Galería de momentos especiales"
   >
     <div class="gallery-container">
-      <div class="gallery-shell">
-        <div class="gallery-main">
-          <header class="gallery-header">
-            <p class="gallery-kicker">Tus recuerdos van acá</p>
-            <h2 class="gallery-title">Galería</h2>
-          </header>
-          
-          <div class="gallery-grid" role="list">
-            {#each galleryItems as item, index (item.id)}
-              <div 
-                class="gallery-item"
-                role="listitem" 
-                style="--item-index:{index + 1}; --item-rotate:{item.rotate}; --item-translateY:{item.translateY};"
-              >
-                <GalleryFrame
-                  imageUrl={item.imageUrl}
-                  type={item.type}
-                  alt={item.alt}
-                  aspectRatio={item.aspectRatio}
-                />
-              </div>
-            {/each}
-          </div>
+      <!-- Header de la galería -->
+      <header class="gallery-header">
+        <div class="gallery-header-content">
+          <p class="gallery-kicker">思い出のギャラリー</p>
+          <h2 class="gallery-title">Galería</h2>
         </div>
+      </header>
+      
+      <!-- Grid de fotos -->
+      <div class="gallery-photos" role="list">
+        {#each galleryItems as item, index (item.id)}
+          <div class="gallery-row" role="presentation">
+            <div 
+              class="gallery-item"
+              role="listitem"
+              aria-label={item.alt}
+              style="--item-index:{index + 1};"
+            >
+              <GalleryFrame
+                imageUrl={item.imageUrl}
+                type={item.type}
+                alt={item.alt}
+                aspectRatio={item.aspectRatio}
+              />
+            </div>
+          </div>
+        {/each}
       </div>
+      
     </div>
   </section>
 {/if}
@@ -105,107 +109,124 @@
     width: 100%;
     min-height: 100vh;
     background: transparent;
-    padding: clamp(32px, 5vw, 64px) var(--spacing-md) var(--spacing-xl);
+    padding: clamp(40px, 6vw, 80px) var(--spacing-md) var(--spacing-xl);
     box-sizing: border-box;
   }
   
   .gallery-container {
-    max-width: 1220px;
+    max-width: 600px;
     margin: 0 auto;
     width: 100%;
+    position: relative;
   }
 
-  .gallery-shell {
-    display: block;
-  }
-  
   /* Encabezado */
   .gallery-header {
-    text-align: left;
-    margin-bottom: clamp(24px, 4vw, 42px);
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: clamp(40px, 6vw, 64px);
     padding: 0 var(--spacing-sm);
   }
 
+  .gallery-header-content {
+    text-align: center;
+  }
+
   .gallery-kicker {
-    margin: 0 0 10px;
-    color: rgba(255, 255, 255, 0.84);
-    text-transform: uppercase;
-    letter-spacing: 0.22em;
-    font-size: 0.78rem;
-    font-weight: 700;
+    margin: 0 0 8px;
+    color: var(--color-primary-light, #b8a0d1);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
   }
   
   .gallery-title {
     font-family: var(--font-display);
-    font-size: clamp(2.2rem, 5vw, 3.8rem);
-    color: var(--color-white);
-    margin: 0 0 8px 0;
-    text-shadow: 0 8px 18px rgba(72, 16, 119, 0.24);
+    font-size: clamp(2.2rem, 6vw, 3.5rem);
+    color: var(--color-ink-strong, #3d2659);
+    margin: 0;
     letter-spacing: -0.03em;
+    position: relative;
+  }
+
+  .gallery-title::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 3px;
+    background: var(--color-primary-light, #b8a0d1);
+    margin: 12px auto 0;
+    border-radius: 2px;
   }
   
-  /* Mobile y Tablet: CSS Columns masonry de 2 columnas */
-  .gallery-grid {
-    display: block;
-    columns: 2;
-    column-gap: 16px;
-    gap: 0;
-    padding: var(--spacing-md) var(--spacing-sm);
-    box-sizing: border-box;
+  /* Fotos: mobile vertical */
+  .gallery-photos {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(24px, 5vh, 40px);
+    width: 100%;
+  }
+
+  .gallery-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
   }
 
   .gallery-item {
     width: 100%;
-    height: auto;
-    display: block;
-    break-inside: avoid;
-    margin-bottom: 16px;
-    padding: clamp(6px, 1vw, 12px);
-    box-sizing: border-box;
     animation: slideUpFade 0.6s ease-out both;
-    animation-delay: calc(var(--item-index) * 0.06s);
+    animation-delay: calc(var(--item-index) * 0.1s);
   }
   
   @keyframes slideUpFade {
     from {
       opacity: 0;
-      transform: translateY(28px) rotate(var(--item-rotate, 0deg)) translateY(var(--item-translateY, 0px)) scale(0.98);
+      transform: translateY(20px) scale(0.98);
     }
     to {
       opacity: 1;
-      transform: translateY(0) rotate(var(--item-rotate, 0deg)) translateY(var(--item-translateY, 0px)) scale(1);
+      transform: translateY(0) scale(1);
     }
   }
 
-  /* Desktop: CSS Columns (masonry) de 3 columnas */
-  @media (min-width: 1024px) {
-    .gallery-grid {
-      columns: 3;
-      column-gap: clamp(24px, 3vw, 40px);
-      padding: var(--spacing-md) var(--spacing-sm);
+  /* Desktop: masonry real con columns */
+  @media (min-width: 768px) {
+    .gallery-container {
+      max-width: 900px;
     }
 
-    .gallery-item {
-      break-inside: avoid;
-      margin-bottom: clamp(20px, 3vh, 32px);
-      width: 100%;
-      padding: clamp(8px, 1.2vw, 14px);
-    }
-  }
-
-  @media (max-width: 1023px) {
     .gallery-header {
-      text-align: center;
+      margin-bottom: clamp(48px, 6vw, 72px);
     }
-  }
 
-  @media (max-width: 520px) {
-    .gallery-grid {
-      columns: 1;
+    .gallery-kicker {
+      font-size: 0.95rem;
     }
+
+    .gallery-title {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      letter-spacing: -0.02em;
+    }
+
+    .gallery-photos {
+      display: block;
+      columns: 2;
+      column-gap: clamp(20px, 3vw, 32px);
+    }
+
+    .gallery-row {
+      break-inside: avoid;
+      margin-bottom: clamp(20px, 3vw, 32px);
+      gap: clamp(16px, 3vw, 32px);
+    }
+
     .gallery-item {
-      margin-bottom: 12px;
-      padding: clamp(4px, 1.5vw, 8px);
+      max-width: 420px;
+      margin: 0 auto;
     }
   }
   
@@ -214,8 +235,6 @@
     .gallery-item {
       animation: none !important;
       transform: none !important;
-      --item-rotate: 0deg;
-      --item-translateY: 0px;
     }
   }
 </style>

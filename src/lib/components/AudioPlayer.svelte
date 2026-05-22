@@ -85,9 +85,23 @@
     <a class="download-link" href={audioSrc} download>⬇ descargar</a>
   {:else}
     <button class="play-btn" onclick={togglePlay} type="button" aria-label={isPlaying ? 'Pausar' : 'Reproducir'}>
-      {isPlaying ? '❚❚' : '▶'}
+      {#if isPlaying}
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="white">
+          <rect x="6" y="4" width="4" height="16" rx="1" />
+          <rect x="14" y="4" width="4" height="16" rx="1" />
+        </svg>
+      {:else}
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="white">
+          <polygon points="5,3 19,12 5,21" />
+        </svg>
+      {/if}
     </button>
-    <span class="audio-label">Música</span>
+    
+    <div class="audio-info">
+      <span class="audio-label">Música</span>
+      <span class="audio-subtitle">Para ti, Mei ♡</span>
+    </div>
+    
     {#if isPlaying}
       <div class="equalizer" aria-hidden="true">
         <span class="bar"></span>
@@ -96,7 +110,8 @@
         <span class="bar"></span>
       </div>
     {/if}
-    <a class="download-link" href={audioSrc} download>⬇ descargar</a>
+    
+
   {/if}
   <audio bind:this={audioElement} src={audioSrc} preload="auto" oncanplaythrough={handleReady} onerror={handleError} onended={() => isPlaying = false}></audio>
 </div>
@@ -106,48 +121,68 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.6rem 1rem;
-    background: #ffffff;
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 0.5rem 1.25rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 50px;
     position: fixed;
-    bottom: 1rem;
-    right: 1rem;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 1000;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 24px rgba(61, 38, 89, 0.1);
+    min-width: 280px;
+    max-width: 90vw;
   }
 
   .play-btn {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: #83109c;
+    background: var(--color-primary, #8b6db5);
     color: white;
-    font-size: 1.2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     border: none;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(131, 16, 156, 0.3);
+    box-shadow: 0 2px 10px rgba(124, 92, 156, 0.25);
     transition: transform 0.2s ease, background 0.2s ease;
     flex-shrink: 0;
   }
 
   .play-btn:hover {
     transform: scale(1.05);
-    background: #9a1cb8;
+    background: var(--color-primary-dark, #6b4f8a);
   }
 
   .play-btn:active {
     transform: scale(0.95);
   }
 
+  .audio-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+  }
+
   .audio-label {
-    font-family: var(--font-display, system-ui, -apple-system, sans-serif);
-    color: var(--color-text, #2d0a3d);
+    font-family: var(--font-body, 'Quicksand', sans-serif);
+    color: var(--color-ink-strong, #3d2659);
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+
+  .audio-subtitle {
+    font-family: var(--font-body, 'Quicksand', sans-serif);
+    color: var(--color-primary-light, #b8a0d1);
+    font-weight: 400;
+    font-size: 0.8rem;
     white-space: nowrap;
   }
 
@@ -156,12 +191,15 @@
     align-items: flex-end;
     gap: 3px;
     height: 20px;
+    flex-shrink: 0;
   }
 
   .equalizer .bar {
     width: 4px;
-    background: #83109c;
+    height: 16px;
+    background: var(--color-primary, #8b6db5);
     border-radius: 2px;
+    transform-origin: bottom;
     animation: equalize 0.8s ease-in-out infinite alternate;
   }
 
@@ -183,16 +221,24 @@
 
   @keyframes equalize {
     0% {
-      height: 4px;
+      transform: scaleY(0.25);
     }
     100% {
-      height: 16px;
+      transform: scaleY(1);
     }
+  }
+
+
+
+  .error-text {
+    color: #b00020;
+    font-weight: 500;
+    font-size: 0.9rem;
   }
 
   .download-link {
     margin-left: auto;
-    color: var(--color-text-secondary, #5a3d6e);
+    color: var(--color-primary, #8b6db5);
     text-decoration: none;
     font-size: 0.85rem;
     opacity: 0.8;
@@ -202,12 +248,6 @@
 
   .download-link:hover {
     opacity: 1;
-  }
-
-  .error-text {
-    color: #b00020;
-    font-weight: 500;
-    font-size: 0.9rem;
   }
 
   .audio-player.error {
@@ -225,22 +265,28 @@
 
   @media (max-width: 480px) {
     .audio-player {
-      padding: 0.5rem 0.75rem;
-      gap: 0.5rem;
-      bottom: 0.5rem;
-      right: 0.5rem;
-      left: 0.5rem;
-      border-radius: 25px;
+      padding: 0.5rem 1rem;
+      gap: 0.6rem;
+      bottom: 1rem;
+      left: 1rem;
+      right: 1rem;
+      transform: none;
+      border-radius: 40px;
+      min-width: 0;
+      width: calc(100% - 2rem);
     }
 
     .play-btn {
-      width: 40px;
-      height: 40px;
-      font-size: 1rem;
+      width: 44px;
+      height: 44px;
     }
 
     .audio-label {
       font-size: 0.9rem;
+    }
+
+    .audio-subtitle {
+      font-size: 0.75rem;
     }
 
     .equalizer {
@@ -253,10 +299,10 @@
 
     @keyframes equalize {
       0% {
-        height: 3px;
+        transform: scaleY(0.25);
       }
       100% {
-        height: 12px;
+        transform: scaleY(1);
       }
     }
 
@@ -266,6 +312,12 @@
 
     .error-text {
       font-size: 0.8rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .equalizer .bar {
+      animation: none !important;
     }
   }
 </style>
