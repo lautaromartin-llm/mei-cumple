@@ -15,7 +15,7 @@
   class:bg-panda={$appPhase === 'intro' || $appPhase === 'reveal' || $appPhase === 'celebration'}
   class:bg-gallery={$appPhase === 'gallery'}
   aria-label="Cumpleaños de Mei"
-  style="--bg-panda: url('{baseUrl}media/backgrounds/panda-background.png'); --bg-gallery: url('{baseUrl}media/backgrounds/galery-background.png');"
+  style="--bg-panda: url('{baseUrl}media/backgrounds/panda-background.webp'); --bg-gallery: url('{baseUrl}media/backgrounds/galery-background.webp');"
 >
   <div class="global-petals" aria-hidden="true">
     <CherryPetals />

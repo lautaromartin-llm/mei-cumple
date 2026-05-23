@@ -4,10 +4,10 @@
 
   // Mapeo de poses a archivos PNG
   const poseToPng = {
-    'eating': `${mediaBase}PandaSentadoComiendoBambu.png`,
-    'looking': `${mediaBase}PandaFelizMirandoHaciaLaDerechaYHaciaArriba.png`,
-    'side': `${mediaBase}PandaFelizAlzandoLasManosMirandoALaDerechayHaciaArriba.png`,
-    'worried': `${mediaBase}PandaAgobiadoSentado.png`
+    'eating': `${mediaBase}PandaSentadoComiendoBambu.webp`,
+    'looking': `${mediaBase}PandaFelizMirandoHaciaLaDerechaYHaciaArriba.webp`,
+    'side': `${mediaBase}PandaFelizAlzandoLasManosMirandoALaDerechayHaciaArriba.webp`,
+    'worried': `${mediaBase}PandaAgobiadoSentado.webp`
   };
 
   // Descripciones accesibles
